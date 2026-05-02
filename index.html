@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>إيوان للاستشارات | Iwan Consulting</title>
+
+  <!-- Preconnect to Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Modern Typography: Cairo for elegant headings, Tajawal for readable body text -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;800;900&family=Tajawal:wght@300;400;500;700;800&display=swap"
+    rel="stylesheet" />
+
+  <!-- Remix Icons for filled icons -->
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      /* Premium Color Palette */
+      --color-dark: #051f1c;
+      /* Deep forest night */
+      --color-dark-surface: #0a2925;
+      /* Slightly lighter deep forest */
+      --color-emerald: #00998b;
+      /* Rich emerald */
+      --color-accent-gold: #f96e47;
+      /* Champagne gold */
+      --color-accent-glow: rgba(249, 110, 71, 0.4);
+      --color-light: #F9F9F8;
+      /* Pearl white */
+      --color-text-dark: #1A2624;
+      --color-text-muted: #576A66;
+      --color-text-light: #E0EAE7;
+
+      --glass-bg: rgba(255, 255, 255, 0.03);
+      --glass-border: rgba(255, 255, 255, 0.08);
+      --glass-bg-light: rgba(255, 255, 255, 0.85);
+      --glass-border-light: rgba(255, 255, 255, 0.5);
+
+      --transition-slow: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+      --font-heading: 'Cairo', sans-serif;
+      --font-body: 'Tajawal', sans-serif;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--color-light);
+      color: var(--color-text-dark);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    i[class^="ri-"] {
+      color: var(--color-accent-gold);
+    }
+
+    /* Typography Utilities */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-heading);
+      line-height: 1.2;
+    }
+
+    .editorial-title {
+      font-weight: 900;
+      letter-spacing: -0.02em;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity var(--transition-slow), transform var(--transition-slow);
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 {
+      transition-delay: 0.1s;
+    }
+
+    .stagger-2 {
+      transition-delay: 0.2s;
+    }
+
+    .stagger-3 {
+      transition-delay: 0.3s;
+    }
+
+    .stagger-4 {
+      transition-delay: 0.4s;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--color-dark);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--color-emerald);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--color-accent-gold);
+    }
+
+    /* --- NAVBAR --- */
+    nav {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 80px;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5%;
+      background: var(--glass-bg-light);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--glass-border-light);
+      transition: transform var(--transition-fast), background var(--transition-fast);
+    }
+
+    nav.scrolled {
+      height: 70px;
+      background: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    }
+
+    .nav-logo img {
+      height: 48px;
+      object-fit: contain;
+      transition: transform var(--transition-fast);
+    }
+
+    .nav-logo:hover img {
+      transform: scale(1.05);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--color-text-dark);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1rem;
+      position: relative;
+      padding: 0.5rem 0;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--color-accent-gold);
+      transition: width var(--transition-fast);
+    }
+
+    .nav-links a:hover {
+      color: var(--color-emerald);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+      left: auto;
+    }
+
+    .btn-gold {
+      background: var(--color-accent-gold);
+      color: var(--color-dark);
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 800;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-gold:hover {
+      background: transparent;
+      border-color: var(--color-accent-gold);
+      color: var(--color-accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px var(--color-accent-glow);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+      min-height: 100vh;
+      background-color: var(--color-dark);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 120px 5% 60px;
+    }
+
+    /* Dynamic Mesh Background */
+    .hero-mesh {
+      position: absolute;
+      inset: -20%;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(0, 153, 139, 0.4) 0%, transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(249, 110, 71, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 60% 20%, rgba(5, 31, 28, 0.8) 0%, transparent 50%);
+      filter: blur(60px);
+      animation: mesh-movement 20s ease-in-out infinite alternate;
+      z-index: 1;
+    }
+
+    .hero-grid-overlay {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 40px 40px;
+      z-index: 2;
+    }
+
+    @keyframes mesh-movement {
+      0% {
+        transform: scale(1) translate(0, 0);
+      }
+
+      33% {
+        transform: scale(1.05) translate(3%, 2%);
+      }
+
+      66% {
+        transform: scale(0.95) translate(-2%, 4%);
+      }
+
+      100% {
+        transform: scale(1.02) translate(-3%, -2%);
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text {
+      max-width: 650px;
+    }
+
+    .badge-premium {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--color-accent-gold);
+      padding: 0.5rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-premium .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent-gold);
+      animation: pulse-gold 2s infinite;
+    }
+
+    @keyframes pulse-gold {
+      0% {
+        box-shadow: 0 0 0 0 rgba(249, 110, 71, 0.7);
+      }
+
+      70% {
+        box-shadow: 0 0 0 10px rgba(249, 110, 71, 0);
+      }
+
+      100% {
+        box-shadow: 0 0 0 0 rgba(249, 110, 71, 0);
+      }
+    }
+
+    .hero h1 {
+      font-size: clamp(3rem, 5vw, 4.5rem);
+      color: #fff;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+
+    .hero h1 .highlight {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--color-accent-gold);
+      background: linear-gradient(to left, var(--color-accent-gold) 50%, transparent 50%);
+      background-size: 200% 100%;
+      background-position: 0% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: fill-text-bg 3s cubic-bezier(0.16, 1, 0.3, 1) forwards 1s;
+    }
+
+    @keyframes fill-text-bg {
+      to {
+        background-position: 100% 0;
+      }
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--color-text-light);
+      line-height: 1.8;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      opacity: 0.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-outline-light {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      text-decoration: none;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 0.95rem;
+      transition: all var(--transition-fast);
+      backdrop-filter: blur(5px);
+    }
+
+    .btn-outline-light:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: #fff;
+      transform: translateY(-2px);
+    }
+
+    /* Hero Visual Abstract */
+    .hero-visual {
+      position: relative;
+      height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .abstract-shape {
+      width: 300px;
+      height: 400px;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 30px 100px 30px 100px;
+      backdrop-filter: blur(20px);
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .abstract-shape::before {
+      content: 'إيوان';
+      font-family: var(--font-heading);
+      font-size: 5rem;
+      font-weight: 900;
+      color: rgba(255, 255, 255, 0.05);
+      position: absolute;
+      transform: rotate(-90deg);
+      letter-spacing: 0.2em;
+    }
+
+    .abstract-circle {
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--color-accent-gold), transparent);
+      bottom: -20px;
+      right: -20px;
+      z-index: -1;
+      filter: blur(10px);
+      animation: float 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes float {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      50% {
+        transform: translateY(-20px) rotate(2deg);
+      }
+    }
+
+
+    /* --- SECTIONS COMMON --- */
+    section {
+      padding: 120px 5%;
+      position: relative;
+    }
+
+    .section-header {
+      margin-bottom: 5rem;
+      position: relative;
+    }
+
+    .section-header.center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-tag {
+      font-family: var(--font-heading);
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: var(--color-accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      display: inline-block;
+      position: relative;
+    }
+
+    .section-tag::before {
+      content: '';
+      position: absolute;
+      right: -30px;
+      top: 50%;
+      width: 20px;
+      height: 2px;
+      background: var(--color-accent-gold);
+    }
+
+    .section-header.center .section-tag::before {
+      display: none;
+    }
+
+    .section-title {
+      font-size: clamp(2.5rem, 4vw, 3.5rem);
+      color: var(--color-dark);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .section-title span {
+      color: var(--color-emerald);
+      position: relative;
+    }
+
+    .section-title span::after {
+      content: '';
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+      right: 0;
+      height: 8px;
+      background: var(--color-accent-glow);
+      z-index: -1;
+    }
+
+    .section-desc {
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+      max-width: 1000px;
+    }
+
+    /* --- ABOUT SECTION --- */
+    .about {
+      background: var(--color-light);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-card-glass {
+      background: var(--color-dark-surface);
+      border-radius: 40px 0 40px 0;
+      padding: 4rem 3rem;
+      position: relative;
+      z-index: 2;
+      box-shadow: 0 30px 60px rgba(5, 31, 28, 0.1);
+      overflow: hidden;
+    }
+
+    .about-card-glass::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .about-card-glass h3 {
+      font-size: 2rem;
+      color: #fff;
+      margin-bottom: 1.5rem;
+    }
+
+    .about-card-glass p {
+      color: var(--color-text-light);
+      opacity: 0.8;
+      line-height: 1.9;
+      font-size: 1.05rem;
+    }
+
+    .about-decorative-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border: 2px solid var(--color-accent-gold);
+      top: -20px;
+      left: 20px;
+      border-radius: 40px 0 40px 0;
+      z-index: 1;
+    }
+
+    .vm-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .vm-item {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .vm-icon {
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+      flex-shrink: 0;
+      color: var(--color-emerald);
+    }
+
+    .vm-item h4 {
+      font-size: 1.2rem;
+      color: var(--color-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .vm-item p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* --- VALUES --- */
+    .values {
+      background: var(--color-light);
+      padding-top: 0;
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .value-card {
+      background: #fff;
+      border: 3px solid rgba(0, 0, 0, 0.04);
+      border-radius: 30px;
+      padding: 3rem 2rem;
+      text-align: center;
+      transition: all var(--transition-slow);
+      position: relative;
+    }
+
+    .value-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 153, 139, 0.05);
+      border-color: rgba(0, 153, 139, 0.1);
+    }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--glass-bg-light);
+      border: 1px solid var(--glass-border-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--color-accent-gold);
+      margin: 0 auto 1.5rem;
+      transition: all var(--transition-fast);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .value-card:hover .value-icon {
+      border-color: var(--color-accent-gold);
+      color: #fff;
+      transform: scale(1.1);
+    }
+
+    .value-card h4 {
+      font-size: 1.4rem;
+      color: var(--color-dark);
+      margin-bottom: 1rem;
+      font-family: var(--font-heading);
+      font-weight: 800;
+    }
+
+    .value-card p {
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+      line-height: 1.8;
+    }
+
+    /* --- SERVICES BENTO BOX --- */
+    .services {
+      background: #fff;
+      border-radius: 60px 60px 0 0;
+      margin-top: -60px;
+      box-shadow: 0 -20px 50px rgba(0, 0, 0, 0.02);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: minmax(280px, auto);
+      gap: 1.5rem;
+    }
+
+    .bento-card {
+      background: var(--color-light);
+      border-radius: 30px;
+      padding: 2.5rem;
+      position: relative;
+      overflow: hidden;
+      transition: all var(--transition-slow);
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    .bento-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 153, 139, 0.08);
+      background: #fff;
+      border-color: rgba(0, 153, 139, 0.1);
+    }
+
+    .bento-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: 4px;
+
+      background: var(--color-emerald);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform var(--transition-fast);
+    }
+
+    .bento-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Dynamic spanning for Bento effect */
+    .bento-card:nth-child(1) {
+      grid-column: span 8;
+    }
+
+    .bento-card:nth-child(2) {
+      grid-column: span 4;
+    }
+
+    .bento-card:nth-child(3) {
+      grid-column: span 4;
+    }
+
+    .bento-card:nth-child(4) {
+      grid-column: span 4;
+    }
+
+    .bento-card:nth-child(5) {
+      grid-column: span 4;
+    }
+
+    .bento-card:nth-child(6) {
+      grid-column: span 6;
+    }
+
+    .bento-card:nth-child(7) {
+      grid-column: span 6;
+    }
+
+    .bento-card:nth-child(8) {
+      grid-column: span 12;
+      flex-direction: row;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .service-num {
+      font-family: var(--font-heading);
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(0, 153, 139, 0.05);
+      position: absolute;
+      top: 1rem;
+      left: 1.5rem;
+      line-height: 1;
+      transition: color var(--transition-fast);
+    }
+
+    .bento-card:hover .service-num {
+      color: rgba(0, 153, 139, 0.1);
+    }
+
+    .service-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .bento-card h3 {
+      font-size: 1.3rem;
+      color: var(--color-dark);
+      margin-bottom: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-list {
+      list-style: none;
+      margin-top: auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .service-list li {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      padding: 0.4rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+
+    .service-list li::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-accent-gold);
+      margin-top: 8px;
+      flex-shrink: 0;
+    }
+
+    /* Specific overrides for the last full-width card */
+    .bento-card:nth-child(8) .service-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0 2rem;
+      flex: 1;
+    }
+
+    /* --- WHO WE SERVE & WHY IWAN --- */
+    .dual-section {
+      background: var(--color-dark);
+      color: #fff;
+      border-radius: 60px;
+      margin: 0 2%;
+      padding: 100px 5%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dual-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle at center, rgba(0, 153, 139, 0.15) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .dual-section .section-title {
+      color: #fff;
+    }
+
+    .dual-section .section-desc {
+      color: var(--color-text-light);
+      opacity: 0.7;
+    }
+
+    .who-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .who-pill {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 20px;
+      padding: 1.2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      transition: all var(--transition-fast);
+      backdrop-filter: blur(10px);
+    }
+
+    .who-pill:hover {
+      background: rgba(249, 110, 71, 0.1);
+      border-color: var(--color-accent-gold);
+      transform: scale(1.02);
+    }
+
+    .who-pill span {
+      font-size: 1.8rem;
+    }
+
+    .who-pill p {
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    /* --- METHODOLOGY --- */
+    .methodology {
+      background: var(--color-light);
+    }
+
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin-top: 4rem;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 40px;
+      left: 5%;
+      right: 5%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-emerald), var(--color-accent-gold));
+      opacity: 0.3;
+    }
+
+    .timeline-step {
+      width: 22%;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-marker {
+      width: 80px;
+      height: 80px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--color-emerald);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2rem;
+      border: 2px solid var(--color-light);
+      transition: all var(--transition-fast);
+    }
+
+    .timeline-step:hover .step-marker {
+      transform: scale(1.1);
+      border-color: var(--color-accent-gold);
+      color: var(--color-accent-gold);
+    }
+
+    .timeline-step h3 {
+      font-size: 1.3rem;
+      color: var(--color-dark);
+      margin-bottom: 1rem;
+    }
+
+    .timeline-step p {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.7;
+    }
+
+    /* --- PARTNERS --- */
+    .partners {
+      background: var(--color-light);
+      padding: 5rem 5% 2rem;
+    }
+
+    .partners-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .partner-logo {
+      background: #fff;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      border-radius: 20px;
+      width: 180px;
+      height: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      transition: all var(--transition-fast);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .partner-logo:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 153, 139, 0.08);
+      border-color: rgba(0, 153, 139, 0.1);
+    }
+
+    .partner-logo img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      filter: grayscale(100%);
+      opacity: 0.7;
+      transition: all var(--transition-fast);
+    }
+
+    .partner-logo:hover img {
+      filter: grayscale(0%);
+      opacity: 1;
+    }
+
+    /* --- CONTACT --- */
+    .contact {
+      background: #fff;
+    }
+
+    .contact-wrapper {
+      background: var(--color-dark);
+      border-radius: 40px;
+      padding: 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 40px 80px rgba(5, 31, 28, 0.15);
+    }
+
+    .contact-wrapper::after {
+      content: '';
+      position: absolute;
+      bottom: -100px;
+      left: -100px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(249, 110, 71, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    .contact-info {
+      color: #fff;
+      position: relative;
+      z-index: 2;
+    }
+
+    .contact-info h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info p.desc {
+      color: var(--color-text-light);
+      opacity: 0.8;
+      font-size: 1.1rem;
+      margin-bottom: 3rem;
+      line-height: 1.8;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .info-icon {
+      width: 50px;
+      height: 50px;
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+    }
+
+    .info-item h5 {
+      font-size: 0.9rem;
+      color: var(--color-accent-gold);
+      margin-bottom: 0.3rem;
+    }
+
+    .info-item p {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .contact-form {
+      background: #fff;
+      border-radius: 24px;
+      padding: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--color-dark);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: var(--color-light);
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      border-radius: 12px;
+      padding: 1rem 1.2rem;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--color-text-dark);
+      transition: all var(--transition-fast);
+      outline: none;
+    }
+
+    .form-control:focus {
+      border-color: var(--color-emerald);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(0, 153, 139, 0.05);
+    }
+
+    textarea.form-control {
+      height: 120px;
+      resize: none;
+    }
+
+    .btn-submit {
+      width: 100%;
+      background: var(--color-emerald);
+      color: #fff;
+      border: none;
+      padding: 1.2rem;
+      border-radius: 12px;
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-submit:hover {
+      background: var(--color-dark);
+      transform: translateY(-2px);
+    }
+
+    /* --- FOOTER --- */
+    footer {
+      background: #021412;
+      color: rgba(255, 255, 255, 0.4);
+      padding: 4rem 5% 2rem;
+      text-align: center;
+      font-size: 0.9rem;
+    }
+
+    .footer-logo img {
+      height: 50px;
+      margin-bottom: 2rem;
+      filter: brightness(0) invert(1) opacity(0.5);
+      transition: opacity var(--transition-fast);
+    }
+
+    .footer-logo img:hover {
+      opacity: 1;
+    }
+
+    /* --- RESPONSIVE --- */
+    @media (max-width: 1024px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .hero-text {
+        margin: 0 auto;
+      }
+
+      .hero-buttons {
+        justify-content: center;
+      }
+
+      .hero-visual {
+        display: none;
+      }
+
+      .bento-card:nth-child(1),
+      .bento-card:nth-child(2),
+      .bento-card:nth-child(3),
+      .bento-card:nth-child(4),
+      .bento-card:nth-child(5),
+      .bento-card:nth-child(6),
+      .bento-card:nth-child(7),
+      .bento-card:nth-child(8) {
+        grid-column: span 12;
+      }
+
+      .bento-card:nth-child(8) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-wrapper {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      .timeline {
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      .timeline::before {
+        display: none;
+      }
+
+      .timeline-step {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        text-align: right;
+        align-items: flex-start;
+      }
+
+      .step-marker {
+        margin-bottom: 0;
+        flex-shrink: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+
+      .contact-info h2 {
+        font-size: 1.9rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .dual-section {
+        border-radius: 30px;
+        margin: 0;
+        padding: 60px 5%;
+      }
+
+      .contact-wrapper {
+        padding: 3rem 1.5rem;
+      }
+
+      .about-decorative-box {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <!-- Using the public folder image -->
+      <img src="./public/logo.png" alt="إيوان للاستشارات" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about">من نحن</a></li>
+      <li><a href="#services">خدماتنا</a></li>
+      <li><a href="#who">من نخدم</a></li>
+      <li><a href="#method">منهجيتنا</a></li>
+    </ul>
+    <a href="#contact" class="btn-gold">اطلب استشارة</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="hero-mesh"></div>
+    <div class="hero-grid-overlay"></div>
+
+    <div class="hero-content">
+      <div class="hero-text reveal">
+        <div class="badge-premium">
+          <span class="dot"></span>
+          إيوان للاستشارات
+        </div>
+        <h1 class="editorial-title">
+          نمكّن القطاع غير الربحي<br />
+          من العمل بـ <span class="highlight" data-text="كفاءة واستدامة">كفاءة واستدامة</span>
+        </h1>
+        <p>
+          إيوان شركة استشارية متخصصة في دعم وتمكين الجهات غير الربحية في المملكة، من خلال حلول إدارية وتشغيلية مبتكرة
+          ومستدامة.
+        </p>
+        <div class="hero-buttons">
+          <a href="#services" class="btn-gold">اكتشف خدماتنا</a>
+          <a href="#about" class="btn-outline-light">تعرف علينا</a>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal stagger-2">
+        <div class="abstract-shape">
+          <div class="abstract-circle"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about">
+    <div class="section-header reveal">
+      <span class="section-tag">من نحن</span>
+      <h2 class="section-title editorial-title">شريك استشاري لخدمة <span>القطاع غير الربحي</span></h2>
+      <p class="section-desc">نؤمن في إيوان أن نجاح المنظمات غير الربحية يعتمد على جودة المبادرات التي تقدمها، بجانب
+        قدرتها على بناء منظومة داخلية واضحة، ونموذج تشغيلي فعّال، وشراكات مستدامة، ومصادر تمويل قادرة على دعم
+        الاستمرارية والنمو. لذلك نعمل مع عملائنا على بناء حلول عملية تناسب حجم المنظمة، وطبيعة خدماتها، واحتياجات
+        مستفيديها، وتطلعاتها المستقبلية.</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-visual reveal stagger-1">
+        <div class="about-decorative-box"></div>
+        <div class="about-card-glass">
+          <h3>رؤية متكاملة للتطوير المؤسسي</h3>
+          <p>تأسست إيوان لتكون شريكًا استشاريًا للجهات غير الربحية في المملكة، من خلال تقديم خدمات متخصصة تساعدها على
+            الانتقال من العمل التشغيلي التقليدي إلى العمل المؤسسي المنظم، القائم على الحوكمة، وضوح الإجراءات، تنمية
+            الموارد، وقياس الأثر.</p>
+        </div>
+      </div>
+
+      <div class="vm-grid">
+        <div class="vm-item reveal stagger-2">
+          <div class="vm-icon"><i class="ri-eye-fill"></i></div>
+          <div>
+            <h4>رؤيتنا</h4>
+            <p>أن نكون شريكًا موثوقًا في تطوير وتمكين الجهات غير الربحية في المملكة، ودعم تحولها إلى منظمات أكثر كفاءة
+              واستدامة وتأثيرًا.</p>
+          </div>
+        </div>
+        <div class="vm-item reveal stagger-3">
+          <div class="vm-icon"><i class="ri-rocket-fill"></i></div>
+          <div>
+            <h4>رسالتنا</h4>
+            <p>تقديم حلول استشارية وتشغيلية تساعد الجهات غير الربحية على تحسين أدائها المؤسسي وتعزيز حوكمتها وتنمية
+              مواردها.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section id="values" class="values">
+    <div class="section-header center reveal">
+      <span class="section-tag">قيمنا</span>
+      <h2 class="section-title editorial-title">قيمنا التي نبني عليها <span>شراكاتنا وثقتنا</span></h2>
+      <p class="section-desc">نؤمن في إيوان بمجموعة من القيم الراسخة التي تمثل البوصلة الحقيقية لكل استشارة نقدمها، ولكل
+        حل نبتكره لشركائنا في القطاع.</p>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card reveal stagger-1">
+        <div class="value-icon"><i class="ri-line-chart-fill"></i></div>
+        <h4>الأثر</h4>
+        <p>نركز على النتائج التي تصنع قيمة حقيقية للمجتمع والمستفيدين.</p>
+      </div>
+      <div class="value-card reveal stagger-2">
+        <div class="value-icon"><i class="ri-user-star-fill"></i></div>
+        <h4>التمكين</h4>
+        <p>نساعد المنظمات على بناء قدراتها الداخلية، وعدم الاكتفاء بتقديم حلول مؤقتة.</p>
+      </div>
+      <div class="value-card reveal stagger-3">
+        <div class="value-icon"><i class="ri-leaf-fill"></i></div>
+        <h4>الاستدامة</h4>
+        <p>نطوّر نماذج عمل وموارد تساعد الجهات غير الربحية على الاستمرار والنمو.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES (BENTO BOX) -->
+  <section id="services" class="services">
+    <div class="section-header center reveal">
+      <span class="section-tag">مجالات التميز</span>
+      <h2 class="section-title editorial-title">حلول متكاملة <span>لتمكين القطاع</span></h2>
+      <p class="section-desc">تقدم إيوان مجموعة من الخدمات الاستشارية والتشغيلية المتخصصة لخدمة وتمكين القطاع غير الربحي
+        عبر منهجيات مبتكرة.</p>
+    </div>
+
+    <div class="bento-grid">
+      <div class="bento-card reveal stagger-1">
+        <div class="service-num">01</div>
+        <div class="service-icon"><i class="ri-government-fill"></i></div>
+        <h3 class="editorial-title">الاستشارات الإدارية والتشغيلية</h3>
+        <ul class="service-list">
+          <li>تطوير النماذج التشغيلية</li>
+          <li>تحسين سير العمل الداخلي</li>
+          <li>بناء الهياكل التنظيمية</li>
+          <li>تحديد الأدوار والمسؤوليات</li>
+          <li>إعداد خطط العمل التشغيلية</li>
+          <li>دعم تنفيذ البرامج والمبادرات</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-2">
+        <div class="service-num">02</div>
+        <div class="service-icon"><i class="ri-scales-3-fill"></i></div>
+        <h3 class="editorial-title">الحوكمة والسياسات والإجراءات</h3>
+        <ul class="service-list">
+          <li>بناء منظومة الحوكمة</li>
+          <li>بناء السياسات الداخلية</li>
+          <li>تطوير إجراءات العمل</li>
+          <li>إعداد مصفوفة الصلاحيات</li>
+          <li>تنظيم العلاقة بين مجلس الإدارة و الإدارةالتنفيذية</li>
+          <li>إعداد الأدلة والنماذج المؤسسية</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-3">
+        <div class="service-num">03</div>
+        <div class="service-icon"><i class="ri-funds-fill"></i></div>
+        <h3 class="editorial-title">الاستدامة المالية وتنمية الموارد</h3>
+        <ul class="service-list">
+          <li>تحليل مصادر الدخل الحالية</li>
+          <li>تصميم نماذج الاستدامة المالية</li>
+          <li>تطوير فرص الرعاية والدعم</li>
+          <li>بناء منتجات وخدمات ذات عائد</li>
+          <li>إعداد خطط تنمية الموارد المالية</li>
+          <li>تصميم مبادرات قابلة للتمويل</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-4">
+        <div class="service-num">04</div>
+        <div class="service-icon"><i class="ri-team-fill"></i></div>
+        <h3 class="editorial-title">بناء الشراكات</h3>
+        <ul class="service-list">
+          <li>تحديد فرص الشراكة المناسبة</li>
+          <li>إعداد ملفات الشراكات والرعايات</li>
+          <li>صياغة عروض القيمة للشركاء</li>
+          <li>بناء نماذج التعاون مع القطاع الخاص</li>
+          <li>إعداد خطط إدارة الشراكات</li>
+          <li>متابعة تفعيل الشراكات وقياس نتائجها</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-1">
+        <div class="service-num">05</div>
+        <div class="service-icon"><i class="ri-earth-fill"></i></div>
+        <h3 class="editorial-title">المشاركة المجتمعية</h3>
+        <ul class="service-list">
+          <li>تصميم مبادرات المشاركة المجتمعية</li>
+          <li>تطوير برامج التطوع</li>
+          <li>بناء نماذج إشراك المستفيدين</li>
+          <li>إعداد حملات التفاعل المجتمعي</li>
+          <li>تفعيل المسؤولية المجتمعية مع الشركاء</li>
+          <li>قياس رضا المستفيدين</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-2">
+        <div class="service-num">06</div>
+        <div class="service-icon"><i class="ri-lightbulb-fill"></i></div>
+        <h3 class="editorial-title">تصميم المبادرات والبرامج</h3>
+        <ul class="service-list">
+          <li>تحليل الاحتياج المجتمعي</li>
+          <li>تصميم فكرة المبادرة</li>
+          <li>تحديد الفئات المستهدفة</li>
+          <li>بناء آلية التنفيذ</li>
+          <li>تحديد الشركاء المحتملين</li>
+          <li>إعداد مؤشرات الأداء والأثر</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-3">
+        <div class="service-num">07</div>
+        <div class="service-icon"><i class="ri-bar-chart-fill"></i></div>
+        <h3 class="editorial-title">قياس الأثر وتقييم البرامج</h3>
+        <ul class="service-list">
+          <li>تصميم مؤشرات قياس الأثر</li>
+          <li>تقييم البرامج والمبادرات</li>
+          <li>إعداد تقارير الأثر</li>
+          <li>تحليل رضا المستفيدين</li>
+          <li>قياس كفاءة استخدام الموارد </li>
+          <li>بناء لوحات متابعة الأداء</li>
+        </ul>
+      </div>
+      <div class="bento-card reveal stagger-4">
+        <div class="service-num">08</div>
+        <div class="service-icon"><i class="ri-megaphone-fill"></i></div>
+        <h3 class="editorial-title">الاتصال المؤسسي</h3>
+        <ul class="service-list">
+          <li>صياغة الرسائل المؤسسية</li>
+          <li>إعداد الملفات التعريفية</li>
+          <li>بناء محتوى تقارير الأثر</li>
+          <li>إعداد خطط التواصل مع المستفيدين والشركاء</li>
+          <li>تطوير محتوى الحملات المجتمعية</li>
+          <li>تحسين العرض المؤسسي أمام الداعمين</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- DUAL SECTION: WHO WE SERVE & WHY US -->
+  <div class="dual-section reveal">
+    <section id="who" style="padding: 0; padding-bottom: 80px;">
+      <div class="section-header">
+        <span class="section-tag" style="color: #fff;">نطاق التأثير</span>
+        <h2 class="section-title editorial-title" style="color: #fff;">نخدم الجهات في <span
+            style="color: var(--color-accent-gold);">القطاع غير الربحي</span></h2>
+      </div>
+
+      <div class="who-grid">
+        <div class="who-pill">
+          <span><i class="ri-building-2-fill"></i></span>
+          <p>الجمعيات الأهلية</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-government-fill"></i></span>
+          <p>المؤسسات غير الربحية</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-article-fill"></i></span>
+          <p>الكيانات الوقفية</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-seedling-fill"></i></span>
+          <p>المبادرات المجتمعية</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-group-fill"></i></span>
+          <p>الفرق التطوعية المنظمة</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-vip-diamond-fill"></i></span>
+          <p>المؤسسات المانحة</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-bank-fill"></i></span>
+          <p>إدارات المسؤولية الاجتماعية في الشركات</p>
+        </div>
+        <div class="who-pill">
+          <span><i class="ri-rocket-fill"></i></span>
+          <p>الجهات الراغبة في إطلاق مبادرات ذات أثر مجتمعي</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="why" style="padding: 0; padding-top: 80px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <div class="section-header">
+        <span class="section-tag" style="color: #fff;">الميزة التنافسية</span>
+        <h2 class="section-title editorial-title" style="color: #fff;">لماذا تختار <span
+            style="color: var(--color-accent-gold);">إيوان؟</span></h2>
+        <p style="font-size: 16px;">
+          لأن القطاع غير الربحي يحتاج حلولًا فريدة تتفهم طبيعته </p>
+      </div>
+
+      <div class="who-grid" style="grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));">
+        <div class="who-pill"
+          style="flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.1rem;">فهم متخصص للقطاع</h4>
+          <p style="font-weight: 400; opacity: 0.8; line-height: 1.6; font-size: 0.95rem;">فهم متخصص لطبيعة القطاع غير
+            الربحي في المملكة العربية السعودية.</p>
+        </div>
+        <div class="who-pill"
+          style="flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.1rem;">حلول عملية قابلة للتطبيق</h4>
+          <p style="font-weight: 400; opacity: 0.8; line-height: 1.6; font-size: 0.95rem;">حلول تجمع بين الاستشارة
+            والتطبيق العملي بما يناسب واقع كل منظمة.</p>
+        </div>
+        <div class="who-pill"
+          style="flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.1rem;">تركيز على الاستدامة والأثر</h4>
+          <p style="font-weight: 400; opacity: 0.8; line-height: 1.6; font-size: 0.95rem;">تركيز على الحوكمة والاستدامة
+            وقياس الأثر الحقيقي للمنظمات.</p>
+        </div>
+        <div class="who-pill"
+          style="flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.1rem;">شراكات ورعايات قابلة للتنفيذ</h4>
+          <p style="font-weight: 400; opacity: 0.8; line-height: 1.6; font-size: 0.95rem;">بناء نماذج شراكات ورعايات
+            فعلية تساعد على تنمية الموارد.</p>
+        </div>
+        <div class="who-pill"
+          style="flex-direction: column; align-items: flex-start; gap: 0.5rem; background: rgba(255,255,255,0.02);">
+          <h4 style="color: var(--color-accent-gold); font-size: 1.1rem;">إبراز الأثر أمام الداعمين</h4>
+          <p style="font-weight: 400; opacity: 0.8; line-height: 1.6; font-size: 0.95rem;">مساعدة الجهات على إبراز أثرها
+            وتقديم عروض قيمة مقنعة للداعمين.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- METHODOLOGY -->
+  <section id="method" class="methodology">
+    <div class="section-header center reveal">
+      <span class="section-tag">منهجية العمل</span>
+      <h2 class="section-title editorial-title">رحلة التميز من <span>الفهم إلى التنفيذ</span></h2>
+      <p class="section-desc">نعمل في إيوان وفق منهجية واضحة تبدأ بفهم واقع الجهة واحتياجاتها، ثم تصميم الحلول، وصولًا
+        إلى دعم التنفيذ وقياس الأثر.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-step reveal stagger-1">
+        <div class="step-marker">١</div>
+        <h3 class="editorial-title">فهم الواقع</h3>
+        <p>نحلل الوضع الحالي للمنظمة ونراجع نماذج العمل والتحديات التشغيلية والفرص المتاحة للتطوير.</p>
+      </div>
+      <div class="timeline-step reveal stagger-2">
+        <div class="step-marker">٢</div>
+        <h3 class="editorial-title">تصميم الحلول</h3>
+        <p>نطوّر حلولًا عملية تناسب طبيعة الجهة سواء في الحوكمة أو التشغيل أو الاستدامة المالية أو قياس الأثر.</p>
+      </div>
+      <div class="timeline-step reveal stagger-3">
+        <div class="step-marker">٣</div>
+        <h3 class="editorial-title">دعم التنفيذ</h3>
+        <p>نساعد فرق العمل على تطبيق الحلول من خلال الأدلة والنماذج والخطط وآليات المتابعة.</p>
+      </div>
+      <div class="timeline-step reveal stagger-4">
+        <div class="step-marker">٤</div>
+        <h3 class="editorial-title">قياس الأثر والتحسين</h3>
+        <p>نربط العمل بمؤشرات واضحة تساعد على متابعة الأداء وتحسين النتائج وإظهار القيمة المحققة.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section id="partners" class="partners">
+    <div class="section-header center reveal">
+      <span class="section-tag">شركاء النجاح</span>
+      <h2 class="section-title editorial-title">نعتز بـ <span>شركائنا</span></h2>
+      <p class="section-desc">نفتخر بالعمل مع نخبة من الجهات والمؤسسات في القطاع لتقديم أفضل الحلول وتحقيق أثر مستدام.
+      </p>
+    </div>
+
+    <div class="partners-grid reveal stagger-2">
+      <div class="partner-logo">
+        <img src="./public/partners/partners-01.jpg" alt="شريك" />
+      </div>
+      <div class="partner-logo">
+        <img src="./public/partners/partners-02.jpg" alt="شريك" />
+      </div>
+      <div class="partner-logo">
+        <img src="./public/partners/partners-03.jpg" alt="شريك" />
+      </div>
+      <div class="partner-logo">
+        <img src="./public/partners/partners-04.jpg" alt="شريك" />
+      </div>
+      <div class="partner-logo">
+        <img src="./public/partners/partners-05.jpg" alt="شريك" />
+      </div>
+      <div class="partner-logo">
+        <img src="./public/partners/partners-06.png" alt="شريك" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact">
+    <div class="contact-wrapper reveal">
+      <div class="contact-info">
+        <span class="section-tag">تواصل معنا</span>
+        <h2 class="editorial-title">ابدأ رحلة التميز <span style="color: var(--color-accent-gold);">المؤسسي</span></h2>
+        <p class="desc">فريق إيوان جاهز لتقديم الاستشارة وبناء الحلول المناسبة لاحتياجات منظمتك.</p>
+
+        <div class="info-item">
+          <div class="info-icon"><i class="ri-mail-fill"></i></div>
+          <div>
+            <h5>البريد الإلكتروني</h5>
+            <p>Info@Iwan.Consulting</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon"><i class="ri-map-pin-fill"></i></div>
+          <div>
+            <h5>العنوان</h5>
+            <p>المملكة العربية السعودية</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>الاسم الكامل</label>
+            <input type="text" id="wa-name" class="form-control" placeholder="أدخل اسمك" />
+          </div>
+          <div class="form-group">
+            <label>اسم الجهة</label>
+            <input type="text" id="wa-org" class="form-control" placeholder="منظمتك" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>البريد الإلكتروني</label>
+          <input type="email" id="wa-email" class="form-control" placeholder="email@example.com" />
+        </div>
+        <div class="form-group">
+          <label>نوع الخدمة المطلوبة</label>
+          <textarea id="wa-msg" class="form-control" placeholder="أخبرنا عن احتياجاتك..."></textarea>
+        </div>
+        <button id="wa-submit" class="btn-submit">إرسال الطلب</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <img src="./public/logo.png" alt="إيوان" />
+    </div>
+    <p>إيوان للاستشارات — شريك متخصص لتمكين القطاع غير الربحي في المملكة العربية السعودية</p>
+
+    <div class="footer-contact"
+      style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin-top: 0.5rem;">
+      <a href="mailto:Info@Iwan.Consulting"
+        style="color: rgba(255, 255, 255, 0.4);text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-family: var(--font-body); font-weight: 600;">
+        <i class="ri-mail-fill" style="color: rgba(255, 255, 255, 0.4);"></i> Info@Iwan.Consulting
+      </a>
+      <a href="https://wa.me/966592792020" target="_blank"
+        style="color: rgba(255, 255, 255, 0.4);text-decoration: none; display: flex; align-items: center; gap: 0.5rem; font-size: 1.1rem; font-family: var(--font-body); font-weight: 600; direction: ltr;">
+        <i class="ri-whatsapp-fill" style="color: rgba(255, 255, 255, 0.4);"></i> +966 59 279 2020
+      </a>
+    </div>
+
+    <p style="margin-top: 0.5rem; opacity: 0.6;">© 2026 إيوان. جميع الحقوق محفوظة.</p>
+  </footer>
+
+  <!-- JS FOR SCROLL REVEALS & NAVBAR -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Navbar Scroll Effect
+      const navbar = document.getElementById('navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+        } else {
+          navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Scroll Reveal Setup
+      const revealElements = document.querySelectorAll('.reveal');
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            observer.unobserve(entry.target); // Reveal only once
+          }
+        });
+      }, {
+        root: null,
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+      });
+
+      revealElements.forEach(el => revealObserver.observe(el));
+
+      // Trigger reveals for elements already in viewport on load
+      setTimeout(() => {
+        revealElements.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            el.classList.add('active');
+          }
+        });
+      }, 100);
+
+      // WhatsApp Form Submit
+      const waSubmitBtn = document.getElementById('wa-submit');
+      if (waSubmitBtn) {
+        waSubmitBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const name = document.getElementById('wa-name').value.trim();
+          const org = document.getElementById('wa-org').value.trim();
+          const email = document.getElementById('wa-email').value.trim();
+          const msg = document.getElementById('wa-msg').value.trim();
+
+          if (!name || !msg) {
+            alert('الرجاء إدخال الاسم والرسالة على الأقل.');
+            return;
+          }
+
+          // TODO: Replace with the actual WhatsApp number (include country code, without + or 00)
+          const waNumber = '966592792020';
+
+          const messageText = `مرحباً فريق إيوان،\n\nالاسم: ${name}\nالجهة: ${org || 'غير محدد'}\nالبريد: ${email || 'غير محدد'}\n\nالرسالة:\n${msg}`;
+
+          window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(messageText)}`, '_blank');
+        });
+      }
+    });
+  </script>
+
+</body>
+
+</html>
